@@ -11,23 +11,44 @@ const { deck, players } = require("../src/index")
 
 describe('startGame', () => {
     test("function returns an object for each participating player", () => {
-        const input = x
+        const input = 2
         const received = startGame(input)
-        const expectedResult = {
-
-        }
-        expectedResult.forEach((player) => {
+        const expectedResult = [
+            {
+                name: "A",
+                hand: [],
+                score: 0,
+                status: "valid"
+            },
+            {
+                name: "B",
+                hand: [],
+                score: 0,
+                status: "valid"
+            }]
+        expect(received.length).toBe(2)
+        received.forEach((player) => {
             expect(player).toMatchObject({
-
+                name: expect.any(String),
+                hand: expect.any(Array),
+                score: 0,
+                status: "valid"
             })
-            expect(received).toBe(x)
-            expect(received).notToBe()
         })
     })
     test("each player is dealt their opening hand containing 2 cards", () => {
-        const input = x
+        const input = 4
         const received = startGame(input)
-        const expectedResult = y
+        received.forEach((player) => {
+            expect(player.hand.length).toBe(2)
+        })
         expect(received).toEqual(expectedResult)
     })
 });
+// describe('Name of the group', () => {
+//     test("", () => {
+//         expect(received).toBe(x)
+//         expect(received).notToBe()
+
+//     })
+// });

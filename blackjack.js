@@ -1,4 +1,12 @@
-const startGame = () => {}
+const { dealCards } = require("./src/utils")
+
+const startGame = (numOfPlayers) => {
+    let players = []
+    let card = dealCards()
+    return card
+}
+
+console.log(startGame(2))
 
 const tally = () => {}
 
@@ -13,4 +21,4 @@ const findWinner = () => {}
 const variable = "test"
 
 
-module.exports = {}
+module.exports = {startGame}
