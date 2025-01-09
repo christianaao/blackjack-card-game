@@ -18,7 +18,5 @@ const stand = () => {}
 
 const findWinner = () => {}
 
-const variable = "test"
-
 
 module.exports = {startGame}
