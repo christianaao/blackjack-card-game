@@ -1,0 +1,12 @@
+{
+  "name": "blackjack-card-game",
+  "version": "1.0.0",
+  "description": "## Game Rules",
+  "main": "blackjack.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
