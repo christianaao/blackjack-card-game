@@ -1,12 +1,26 @@
-const { dealCards } = require("./src/utils")
+const { dealCards, randomName } = require("./src/utils")
 
 const startGame = (numOfPlayers) => {
-    let players = []
-    let card = dealCards()
-    return card
-}
+    if (numOfPlayers < 2) {
+        return "A minimum of 2 participants is required to play this game."
+    }
+    if (numOfPlayers > 26) {
+        return "A maximum of 26 participants can play this game."
+    }
 
-console.log(startGame(2))
+    let players = []
+
+    while(numOfPlayers > 0) {
+        players.push({
+            name: randomName(),
+            hand: dealCards(2),
+            score: 0,
+            status: "valid"
+        })
+        numOfPlayers--
+    }
+    return players
+}
 
 const tally = () => {}
 

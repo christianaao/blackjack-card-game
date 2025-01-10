@@ -1,4 +1,5 @@
 const deck = require("./deck")
+const players = require("./players")
 
 exports.dealCards = (numOfCards) => {
     let hand = []
@@ -23,4 +24,9 @@ exports.dealCards = (numOfCards) => {
     }
 
     return hand
+}
+
+exports.randomName = () => {
+    let index = Math.floor(Math.random() * players.length)
+    return players[index]
 }

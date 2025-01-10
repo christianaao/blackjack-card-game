@@ -1,5 +1,4 @@
 const {startGame} = require("../blackjack")
-const { deck, players } = require("../src/index")
 
 /* Test Objectives: 
  - should not mutate object/array
@@ -10,22 +9,9 @@ const { deck, players } = require("../src/index")
 */
 
 describe('startGame', () => {
-    test("function returns an object for each participating player", () => {
+    test("function returns an object for each participating player in an array", () => {
         const input = 2
         const received = startGame(input)
-        const expectedResult = [
-            {
-                name: "A",
-                hand: [],
-                score: 0,
-                status: "valid"
-            },
-            {
-                name: "B",
-                hand: [],
-                score: 0,
-                status: "valid"
-            }]
         expect(received.length).toBe(2)
         received.forEach((player) => {
             expect(player).toMatchObject({
@@ -40,15 +26,20 @@ describe('startGame', () => {
         const input = 4
         const received = startGame(input)
         received.forEach((player) => {
+            console.log(player)
             expect(player.hand.length).toBe(2)
         })
-        expect(received).toEqual(expectedResult)
+    })
+    test("game does not continue if there is less than 2 players participating", () => {
+        const input = 1
+        const received = startGame(input)
+        const expectedResult = "A minimum of 2 participants is required to play this game."
+        expect(received).toBe(expectedResult)
+    })
+    test("game does not continue if there is more than 26 players participating", () => {
+        const input = 27
+        const received = startGame(input)
+        const expectedResult = "A maximum of 26 participants can play this game."
+        expect(received).toBe(expectedResult)
     })
 });
-// describe('Name of the group', () => {
-//     test("", () => {
-//         expect(received).toBe(x)
-//         expect(received).notToBe()
-
-//     })
-// });
