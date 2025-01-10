@@ -5,9 +5,8 @@ describe('dealCards', () => {
         const input = 2
         const received = dealCards(input)
         received.forEach((card) => {
-            expect(card).toMatchObject({
-                
-            })
+            const checkObject = card instanceof Object
+            expect(checkObject).toBe(true)
         })
     })
     test("function returns the requested number of cards", () => {
