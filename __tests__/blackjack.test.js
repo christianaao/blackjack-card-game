@@ -1,4 +1,9 @@
-const {startGame} = require("../blackjack")
+const {greeting, startGame, tally} = require("../blackjack")
+const readline = require("node:readline")
+const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    })
 
 /* Test Objectives: 
  - should not mutate object/array
@@ -8,6 +13,52 @@ const {startGame} = require("../blackjack")
  - should return expected result
 */
 
+describe.skip('greeting', () => {
+    // test("function should return the number of players participating in the game", () => {
+    //     return greeting().then((result => {
+    //         expect(result).toBe(2)
+    //     }))
+    // })
+    test("function should return the number of players participating in the game", () => {
+        const mockFn = jest.fn()
+        const convertInputToInt = (mockFn) => {
+            rl.question(`Please state how many people are playing: `, num => {
+                console.log(`You entered: ${num}.`)
+                rl.close()
+                const numOfPlayers = parseInt(num)
+                if(typeof numOfPlayers === NaN) {
+                    return console.log("An invalid number has been entered. Please try again.")
+                }
+                mockFn(num, numOfPlayers)
+            })
+        }
+        convertInputToInt(mockFn)
+        expect(mockFn).toBe(expectedResult)
+    })
+    test("function should return the number of players participating in the game", () => {
+        const mockFn = jest.fn()
+        const testFn = (mockFn) => {
+            rl.question(`Please state how many people are playing: `, num => {
+                console.log(`You entered: ${num}.`)
+                rl.close()
+                const numOfPlayers = parseInt(num)
+                if(typeof numOfPlayers === NaN) {
+                    return console.log("An invalid number has been entered. Please try again.")
+                }
+                mockFn(num, numOfPlayers)
+            })
+        }
+        const received = (test)
+        const expectedResult = 2
+        expect(received).toBe(expectedResult)
+    })
+    test("game does not continue if an invalid data type is given", () => {
+        const input = NaN
+        const received = startGame(input)
+        const expectedResult = "An invalid number has been entered. Please try again."
+        expect(received).toBe(expectedResult)
+    })
+});
 describe('startGame', () => {
     test("function returns an object for each participating player in an array", () => {
         const input = 2
@@ -26,7 +77,7 @@ describe('startGame', () => {
         const input = 4
         const received = startGame(input)
         received.forEach((player) => {
-            console.log(player)
+            // console.log(player)
             expect(player.hand.length).toBe(2)
         })
     })
@@ -42,4 +93,30 @@ describe('startGame', () => {
         const expectedResult = "A maximum of 26 participants can play this game."
         expect(received).toBe(expectedResult)
     })
+});
+describe('tally', () => {
+    // test("function calculates the given player's score based on their hand", () => {
+    //     const input = {
+    //                 name: "Sierra",
+    //                 hand: [{c:2}, {h:10}],
+    //                 score: 0,
+    //                 status: "valid"
+    //             }
+    //     const received = tally(input)
+    //     const expectedResult = {
+    //         name: "Sierra",
+    //         hand: [{c:2}, {h:10}],
+    //         score: 12,
+    //         status: "valid"
+    //     }
+    // })
+    // test("", () => {
+        
+    // })
+    // test("", () => {
+        
+    // })
+    // test("", () => {
+        
+    // })
 });
