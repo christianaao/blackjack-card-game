@@ -4,7 +4,11 @@ const {deck, J, Q, K, A} = require("./src/deck")
 
 // Global variables
 
-let players = []
+let activePlayers = []
+
+let bustedPlayers = []
+
+let standingPlayers = []
 
 const greeting = () => {
     // const rl = readline.createInterface({
@@ -41,7 +45,7 @@ const startGame = (numOfPlayers) => {
     console.log(`Dealing cards for ${numOfPlayers} players.`)
 
     while(numOfPlayers > 0) {
-        players.push({
+        activePlayers.push({
             name: randomName(),
             hand: dealCards(2),
             score: 0,
@@ -49,10 +53,10 @@ const startGame = (numOfPlayers) => {
         })
         numOfPlayers--
     }
-    return players
+    return activePlayers
 }
 
-const tally = (players) => {
+const tallyCards = (players) => {
     players.forEach((player) => {
         let scoreEvaluation = 0
         player.hand.forEach((card) => {
@@ -68,8 +72,16 @@ const tally = (players) => {
     return players
 }
 
-const status = () => {}
-
+const updateStatus = (players) => {
+    let validPlayers = []
+    players.forEach((player) => {
+        if(player.score > 21) {
+            player.status = "busted"
+            bustedPlayers.push(player)
+        } else {validPlayers.push(player)}
+    })
+    return validPlayers
+}
 const hit = () => {}
 
 const stand = () => {}
@@ -79,4 +91,4 @@ const findWinner = () => {}
 // greeting()
 
 // startGame(4)
-module.exports = {greeting, startGame, tally}
+module.exports = {greeting, startGame, tallyCards, updateStatus}

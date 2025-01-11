@@ -1,4 +1,4 @@
-const {greeting, startGame, tally} = require("../blackjack")
+const {greeting, startGame, tallyCards, updateStatus} = require("../blackjack")
 const {deck, J, Q, K, A} = require("../src/deck")
 
 // const readline = require("node:readline")
@@ -96,7 +96,7 @@ describe('startGame', () => {
         expect(received).toBe(expectedResult)
     })
 });
-describe('tally', () => {
+describe('tallyCards', () => {
     test("function updates the given player's score based on their current hand", () => {
         const input = [{
             name: "Sierra",
@@ -104,7 +104,7 @@ describe('tally', () => {
             score: 0,
             status: "valid"
         }]
-        const received = tally(input)
+        const received = tallyCards(input)
         const expectedResult = [{
             name: "Sierra",
             hand: [{c:2}, {h:10}],
@@ -135,7 +135,7 @@ describe('tally', () => {
             score: 0,
             status: "valid"
         }]
-        const received = tally(input)
+        const received = tallyCards(input)
         const expectedResult = [{
             name: "Sierra",
             hand: [{c:3}, {s:2}],
@@ -181,7 +181,7 @@ describe('tally', () => {
             score: 20,
             status: "valid"
         }]
-        const received = tally(input)
+        const received = tallyCards(input)
         const expectedResult = [{
             name: "Sierra",
             hand: [{c:3}, {s:2}, {h:4}, {s:5}],
@@ -212,7 +212,7 @@ describe('tally', () => {
             score: 0,
             status: "valid"
         }]
-        const received = tally(input)
+        const received = tallyCards(input)
         const expectedResult = [{
             name: "Sierra",
             hand: [{c:9}, {h:A}, {s:A}],
@@ -243,7 +243,7 @@ describe('tally', () => {
             score: 0,
             status: "valid"
         }]
-        const received = tally(input)
+        const received = tallyCards(input)
         const expectedResult = [{
             name: "Sierra",
             hand: [{c:9}, {h:A}, {s:A}],
@@ -274,7 +274,7 @@ describe('tally', () => {
             score: 0,
             status: "valid"
         }]
-        const received = tally(input)
+        const received = tallyCards(input)
         const expectedResult = [{
             name: "Sierra",
             hand: [],
@@ -283,4 +283,80 @@ describe('tally', () => {
         }]
         expect(received).toEqual(expectedResult)
     })
+});
+describe.only('updateStatus', () => {
+    test("returns array of players with their status set to valid where the score is 21 or less", () => {
+        const input = [{
+            name: "Sierra",
+            hand: [{c:2}, {h:10}],
+            score: 12,
+            status: "valid"
+        }]
+        const received = updateStatus(input)
+        const expectedResult = [{
+            name: "Sierra",
+            hand: [{c:2}, {h:10}],
+            score: 12,
+            status: "valid"
+        }]
+        expect(received).toEqual(expectedResult)
+    })
+    test("returns array of players with their status set to valid where the score is 21 or less", () => {
+        const input = [{
+            name: "Sierra",
+            hand: [{c:3}, {s:2}, {h:4}, {s:5}],
+            score: 14,
+            status: "valid"
+        },{
+            name: "Zulu",
+            hand: [{d:6}, {h:K}, {d:2}, {d:A}],
+            score: 19,
+            status: "valid"
+        },{
+            name: "Wednesday",
+            hand: [{h:9}, {d:8}, {h:7}],
+            score: 24,
+            status: "valid"
+        },{
+            name: "Alfa",
+            hand: [{s:Q}, {c:J}, {s:A}],
+            score: 21,
+            status: "valid"
+        }]
+        const received = updateStatus(input)
+        const expectedResult = [{
+            name: "Sierra",
+            hand: [{c:3}, {s:2}, {h:4}, {s:5}],
+            score: 14,
+            status: "valid"
+        },{
+            name: "Zulu",
+            hand: [{d:6}, {h:K}, {d:2}, {d:A}],
+            score: 19,
+            status: "valid"
+        },{
+            name: "Alfa",
+            hand: [{s:Q}, {c:J}, {s:A}],
+            score: 21,
+            status: "valid"
+        }]
+        expect(received).toEqual(expectedResult)
+    })
+    test("returns an empty array of players where all player scores are 22 or more", () => {
+        const input = [{
+            name: "Wednesday",
+            hand: [{h:9}, {d:8}, {h:7}],
+            score: 24,
+            status: "valid"
+        },{
+            name: "Alfa",
+            hand: [{s:Q}, {c:J}, {s:K}],
+            score: 30,
+            status: "valid"
+        }]
+        const received = updateStatus(input)
+        const expectedResult = []
+        expect(received).toEqual(expectedResult)
+    })
+    // ** may add additional tests here or update tests above for "stand" status** 
 });

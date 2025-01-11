@@ -30,3 +30,7 @@ exports.randomName = () => {
     let index = Math.floor(Math.random() * players.length)
     return players[index]
 }
+
+// exports.checkValidPlayer = (players) => {
+//     if(players.score > )
+// }
