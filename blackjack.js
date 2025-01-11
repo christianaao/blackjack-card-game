@@ -1,5 +1,6 @@
 const { dealCards, randomName } = require("./src/utils")
 const readline = require("node:readline/promises")
+const {deck, J, Q, K, A} = require("./src/deck")
 
 // Global variables
 
@@ -29,10 +30,12 @@ const greeting = () => {
 
 const startGame = (numOfPlayers) => {
     if (numOfPlayers < 2) {
-        return console.log("A minimum of 2 participants is required to play this game.")
+        console.log("A minimum of 2 participants is required to play this game.")
+        return "A minimum of 2 participants is required to play this game."
     }
     if (numOfPlayers > 26) {
-        return console.log("A maximum of 26 participants can play this game.")
+        console.log("A maximum of 26 participants can play this game.")
+        return "A maximum of 26 participants can play this game."
     }
 
     console.log(`Dealing cards for ${numOfPlayers} players.`)
@@ -49,7 +52,21 @@ const startGame = (numOfPlayers) => {
     return players
 }
 
-const tally = () => {}
+const tally = (players) => {
+    players.forEach((player) => {
+        let scoreEvaluation = 0
+        player.hand.forEach((card) => {
+            for (const suit in card) {
+                let suitNumber = card[suit]
+                if(suitNumber === A && player.score <= 10) {
+                    scoreEvaluation = scoreEvaluation + 11
+                } else {scoreEvaluation += suitNumber}
+            }
+            player.score = scoreEvaluation
+        })
+    })
+    return players
+}
 
 const status = () => {}
 
@@ -59,6 +76,7 @@ const stand = () => {}
 
 const findWinner = () => {}
 
-greeting()
+// greeting()
 
+// startGame(4)
 module.exports = {greeting, startGame, tally}

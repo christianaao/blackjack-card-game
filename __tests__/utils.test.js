@@ -20,6 +20,7 @@ describe('dealCards', () => {
         const received = dealCards(input)
         expect(received.length).toBe(6)
     })
+    //need to figure out how to ensure only 1 of each card can be called, i.e. ensure 2 players can't ever have 2 of Hearts at the same time
 });
 
 describe('randomName', () => {

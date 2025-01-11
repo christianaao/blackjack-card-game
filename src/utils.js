@@ -1,4 +1,4 @@
-const deck = require("./deck")
+const {deck, J, Q, K, A} = require("./deck")
 const players = require("./players")
 
 exports.dealCards = (numOfCards) => {
