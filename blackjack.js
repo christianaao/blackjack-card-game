@@ -82,7 +82,11 @@ const updateStatus = (players) => {
     })
     return validPlayers
 }
-const hit = () => {}
+const hit = (player) => {
+    const getCard = dealCards(1)
+    player.hand.push(getCard)
+    return player
+}
 
 const stand = () => {}
 
@@ -91,4 +95,4 @@ const findWinner = () => {}
 // greeting()
 
 // startGame(4)
-module.exports = {greeting, startGame, tallyCards, updateStatus}
+module.exports = {greeting, startGame, tallyCards, updateStatus, hit, stand}

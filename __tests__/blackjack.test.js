@@ -1,4 +1,4 @@
-const {greeting, startGame, tallyCards, updateStatus} = require("../blackjack")
+const {greeting, startGame, tallyCards, updateStatus, hit, stand} = require("../blackjack")
 const {deck, J, Q, K, A} = require("../src/deck")
 
 // const readline = require("node:readline")
@@ -62,7 +62,7 @@ describe.skip('greeting', () => {
     })
 });
 describe('startGame', () => {
-    test("function returns an object for each participating player in an array", () => {
+    test("function returns a card object for each participating player in an array", () => {
         const input = 2
         const received = startGame(input)
         expect(received.length).toBe(2)
@@ -79,7 +79,6 @@ describe('startGame', () => {
         const input = 4
         const received = startGame(input)
         received.forEach((player) => {
-            // console.log(player)
             expect(player.hand.length).toBe(2)
         })
     })
@@ -284,7 +283,7 @@ describe('tallyCards', () => {
         expect(received).toEqual(expectedResult)
     })
 });
-describe.only('updateStatus', () => {
+describe('updateStatus', () => {
     test("returns array of players with their status set to valid where the score is 21 or less", () => {
         const input = [{
             name: "Sierra",
@@ -359,4 +358,64 @@ describe.only('updateStatus', () => {
         expect(received).toEqual(expectedResult)
     })
     // ** may add additional tests here or update tests above for "stand" status** 
+});
+describe('hit', () => {
+    test("function adds a card to the selected player's hand", () => {
+        const input = {
+            name: "Sierra",
+            hand: [{c:2}, {h:10}],
+            score: 12,
+            status: "valid"
+        }
+        const received = hit(input)
+        const checkObject = received.hand[2] instanceof Object
+        expect(received.hand.length).toBe(3)
+        expect(checkObject).toBe(true)
+    })
+    test("function adds a card to the selected player's hand", () => {
+        const input = {
+            name: "Zulu",
+            hand: [{d:6}, {h:K}, {d:2}, {d:A}],
+            score: 19,
+            status: "valid"
+        }
+        const received = hit(input)
+        const checkObject = received.hand[4] instanceof Object
+        expect(received.hand.length).toBe(5)
+        expect(checkObject).toBe(true)
+    })
+});
+describe('stand', () => {
+    test("function does not add a new card to player and sets player status to stand", () => {
+        const input = {
+            name: "Sierra",
+            hand: [{c:2}, {h:10}],
+            score: 12,
+            status: "valid"
+        }
+        const expectedResult = {
+            name: "Sierra",
+            hand: [{c:2}, {h:10}],
+            score: 12,
+            status: "stand"
+        }
+        const received = hit(input)
+        expect(received).toEqual(expectedResult)
+    })
+    test("function does not add a new card to player and sets player status to stand", () => {
+        const input = {
+            name: "Zulu",
+            hand: [{d:6}, {h:K}, {d:2}, {d:A}],
+            score: 19,
+            status: "valid"
+        }
+        const expectedResult = {
+            name: "Zulu",
+            hand: [{d:6}, {h:K}, {d:2}, {d:A}],
+            score: 19,
+            status: "stand"
+        }
+        const received = hit(input)
+        expect(received).toEqual(expectedResult)
+    })
 });
