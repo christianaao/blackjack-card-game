@@ -88,7 +88,12 @@ const hit = (player) => {
     return player
 }
 
-const stand = () => {}
+const stand = (player) => {
+    if(player.score <= 21) {
+        player.status = "stand"
+    } else {bustedPlayers.push(player)}
+    return player
+}
 
 const findWinner = () => {}
 

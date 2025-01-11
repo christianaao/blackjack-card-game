@@ -399,7 +399,7 @@ describe('stand', () => {
             score: 12,
             status: "stand"
         }
-        const received = hit(input)
+        const received = stand(input)
         expect(received).toEqual(expectedResult)
     })
     test("function does not add a new card to player and sets player status to stand", () => {
@@ -415,7 +415,12 @@ describe('stand', () => {
             score: 19,
             status: "stand"
         }
-        const received = hit(input)
+        const received = stand(input)
         expect(received).toEqual(expectedResult)
     })
+    describe('findWinner', () => {
+        test("", () => {
+            
+        })
+    });
 });
