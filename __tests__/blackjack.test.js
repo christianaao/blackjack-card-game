@@ -1,4 +1,4 @@
-const {greeting, startGame, tallyCards, updateStatus, hit, stand} = require("../blackjack")
+const {greeting, startGame, tallyCards, updateStatus, hit, stand, findWinner} = require("../blackjack")
 const {deck, J, Q, K, A} = require("../src/deck")
 
 // const readline = require("node:readline")
@@ -418,9 +418,68 @@ describe('stand', () => {
         const received = stand(input)
         expect(received).toEqual(expectedResult)
     })
-    describe('findWinner', () => {
-        test("", () => {
-            
-        })
-    });
+});
+describe('findWinner', () => {
+    test("function takes array of standing players and returns an array with the player's status set to winner where the score is the closest to 21", () => {
+        const input = [{
+            name: "Sierra",
+            hand: [{c:3}, {s:2}, {h:4}, {s:5}],
+            score: 14,
+            status: "stand"
+        },{
+            name: "Zulu",
+            hand: [{d:6}, {h:K}, {d:2}, {d:A}],
+            score: 19,
+            status: "stand"
+        },{
+            name: "Alfa",
+            hand: [{s:Q}, {c:J}, {s:A}],
+            score: 21,
+            status: "stand"
+        }]
+        const received = (findWinner(input))
+        const expectedResult = [{
+            name: "Alfa",
+            hand: [{s:Q}, {c:J}, {s:A}],
+            score: 21,
+            status: "winner"
+        }]
+        expect(received).toEqual(expectedResult)
+    })
+    test("function takes returns an array of players where there is a draw with each player's status set to draw", () => {
+        const input = [{
+            name: "Sierra",
+            hand: [{c:9}, {h:A}, {s:A}],
+            score: 21,
+            status: "stand"
+        },{
+            name: "Zulu",
+            hand: [{c:10}, {h:J}, {d:A}],
+            score: 21,
+            status: "stand"
+        },{
+            name: "Wednesday",
+            hand: [{c:5}, {d:6}, {c:A}],
+            score: 12,
+            status: "stand"
+        },{
+            name: "Alfa",
+            hand: [{s:A}, {h:A}, {d:A}],
+            score: 13,
+            status: "stand"
+        }]
+        const received = (findWinner(input))
+        const expectedResult = [{
+            name: "Sierra",
+            hand: [{c:9}, {h:A}, {s:A}],
+            score: 21,
+            status: "draw"
+        },{
+            name: "Zulu",
+            hand: [{c:10}, {h:J}, {d:A}],
+            score: 21,
+            status: "draw"
+        }]
+        expect(received).toEqual(expectedResult)
+    })
 });
