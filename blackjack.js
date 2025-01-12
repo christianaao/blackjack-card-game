@@ -1,7 +1,6 @@
 const { dealCards, randomName } = require("./src/utils")
 const readline = require("node:readline/promises")
 const {deck, J, Q, K, A} = require("./src/deck")
-const { forEach } = require("./src/players")
 
 // Global variables
 
@@ -12,6 +11,25 @@ let bustedPlayers = []
 let standingPlayers = []
 
 let winningPlayers = []
+
+// const gameProgression = () => {
+//     greeting()
+//     .then((numOfPlayers) => {
+//         startGame(numOfPlayers)
+//     })
+//     .then((players) => {
+//         players.push(activePlayers)
+//         tallyCards(activePlayers)
+//     })
+//     .then((players) => {
+
+//     })
+// }
+
+// gameProgression = () => {
+//     const numOfPlayers = greeting()
+//     startGame(numOfPlayers)
+// }
 
 const greeting = () => {
     // const rl = readline.createInterface({
@@ -85,6 +103,7 @@ const updateStatus = (players) => {
     })
     return validPlayers
 }
+
 const hit = (player) => {
     const getCard = dealCards(1)
     player.hand.push(getCard)
@@ -117,6 +136,8 @@ const findWinner = (playersOnStand) => {
     } else {winners[0].status = "winner"}
     return winners
 }
+
+// gameProgression()
 
 // greeting()
 

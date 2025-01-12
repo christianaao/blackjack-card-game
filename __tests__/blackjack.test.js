@@ -120,7 +120,7 @@ describe('tallyCards', () => {
             status: "valid"
         },{
             name: "Zulu",
-            hand: [{d:6}, {h:K}],
+            hand: [{d:A}, {h:K}],
             score: 0,
             status: "valid"
         },{
@@ -142,8 +142,8 @@ describe('tallyCards', () => {
             status: "valid"
         },{
             name: "Zulu",
-            hand: [{d:6}, {h:K}],
-            score: 16,
+            hand: [{d:A}, {h:K}],
+            score: 21,
             status: "valid"
         },{
             name: "Wednesday",
@@ -176,7 +176,7 @@ describe('tallyCards', () => {
             status: "valid"
         },{
             name: "Alfa",
-            hand: [{s:Q}, {c:J}, {s:A}],
+            hand: [{s:Q}, {c:K}, {s:A}],
             score: 20,
             status: "valid"
         }]
@@ -198,7 +198,7 @@ describe('tallyCards', () => {
             status: "valid"
         },{
             name: "Alfa",
-            hand: [{s:Q}, {c:J}, {s:A}],
+            hand: [{s:Q}, {c:K}, {s:A}],
             score: 21,
             status: "valid"
         }]
