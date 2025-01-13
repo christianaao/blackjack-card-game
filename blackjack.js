@@ -20,37 +20,50 @@ let round = 1
 // Main utility functions
 
 const functionConnecter = () => {
-    console.dir("Current active players: ", [activePlayers])
     tallyCards(activePlayers)
     updateStatus(activePlayers)
 
-    if (activePlayers.length !== 0) {
-        progressAnouncement(round)
-        console.log("Players will now choose to 'hit' or 'stand'.")
-        playerActions()
-        round++
-    } else {
-        console.log("All players have now chosen to stand. The scores will now be evaluated to find the winner")
+    progressAnouncement(round)
+    if (activePlayers.length === 0) {
+        console.log("THE ROUNDS ARE NOW CONCLUDED.\nThe scores will now be evaluated to find the winner...\n")
+        rl.close()
         let winners = findWinner(standingPlayers)
         if (winners.length === 1) {
-            console.log(`Our winner is ${winners[1].name}!!!`)
+            console.log(`\nTHE WINNER IS: ${winners[0].name}!!!`)
+        } else if (winners.length === 0) {
+            console.log("\nHOUSE WINS! Every player was eliminated this round!")
+        } else {
+            console.log("\nIT'S A DRAW")
+            let winnersList = "The winners are: "
+            winners.forEach((winner) => winnersList += winner.name + ", ")
+            winnersList = winnersList.substring(0, winnersList.length-2)
+            console.log(winnersList + "!")
         }
+    } else {
+        console.log("\nPLAYERS WILL NOW CHOOSE TO 'HIT' OR 'STAND'")
+        playerActions()
+        round++
     }
 }
 
 const progressAnouncement = (round) => {
     if (round === 1) {
         let counter = 1
+        console.log("STARTING RESULTS:")
         activePlayers.forEach((player) => {
-            console.log(`Player ${counter} will be known as ${player.name}, their current hand is ${readSuitName(player.hand)}, and their score is ${player.score}.`)
+            console.log(`Player ${counter} will be known as ${player.name}, their current hand is ${readSuitName(player.hand)}, and their score is ${player.score}.\n`)
             counter++
         })
     } else {
-        console.log(`ROUND: ${round}`)
+        console.log(`ROUND ${round} RESULTS:\n`)
         bustedPlayers.forEach((bustPlayer) => {
             console.log(`${bustPlayer.name}'s current hand is ${readSuitName(bustPlayer.hand)}, and their score is ${bustPlayer.score}. They have been eliminated from the game.\n`)
-            // **** figure out whuch array method to use here to remove bust players from active player list
-            // activePlayers.splice(activePlayers.indexOf(bustPlayer))
+            let index = activePlayers.indexOf(bustPlayer)
+            activePlayers.splice(index, 1)
+        })
+        standingPlayers.forEach((stoodPlayer) => {
+            let index = activePlayers.indexOf(stoodPlayer)
+            activePlayers.splice(index, 1)
         })
         activePlayers.forEach((player) => {
             console.log(`${player.name}'s current hand is ${readSuitName(player.hand)}, and their score is ${player.score}.\n`)
@@ -59,11 +72,19 @@ const progressAnouncement = (round) => {
 }
 
 const playerActions = () => {
+    const askPlayerAction = () => {
+        // first player's turn takes place here:
+        if(activePlayers.length !== 0) {
+            rl.question(rl.question(`${activePlayers[0].name}, please type "h" if you would like to hit, or "s" if you would like to stand: \n`, checkPlayerTurn))
+        }
+    }
+
     let currentPlayerCount = activePlayers.length
     let turnTakenPlayers = []
-    const checkPlayerTurn = function(input) {
+    const checkPlayerTurn = (input) => {
         // check that player input is valid:
         if (input.toLowerCase() !== "h" && input.toLowerCase() !== "s") {
+            //**** test this to ensure it doesnt mess up player cards
             console.log("Please ensure that you enter a valid option. The round will start again.")
             playerActions()
         } else {
@@ -71,32 +92,27 @@ const playerActions = () => {
             // if every player has not yet taken their turn, ask again:
             if (turnTakenPlayers.length < currentPlayerCount) {
                 rl.question(`${activePlayers[turnTakenPlayers.length].name}, please type "h" if you would like to hit, or "s" if you would like to stand: \n`, checkPlayerTurn)
-            } else {console.log("All players have taken an action. The results will now be revealed.")
+            } else {console.log("\nALL PLAYERS HAVE TAKEN AN ACTION\nThe results will now be revealed...\n")
                 applyAction()
             }
         }
     }
 
-    // first player's turn takes place here:
-    if(activePlayers.length === 0) {
-
-    }
-    rl.question(rl.question(`${activePlayers[0].name}, please type "h" if you would like to hit, or "s" if you would like to stand: \n`, checkPlayerTurn))
+    askPlayerAction()
 
     // once every player's turn has been taken, actions are taken based on player's choice
     const applyAction = () => {
         for (let i = 0; i < turnTakenPlayers.length; i++) {
             if (turnTakenPlayers[i] === "h") {
                 hit(activePlayers[i])
-                console.log(`${activePlayers[i].name} has chosen to hit`)
+                console.log(`${activePlayers[i].name} has chosen to hit. A card will now be added to their current hand.`)
                 }
-        else if (turnTakenPlayers[i] === "s") {
-            stand(activePlayers[i])
-            console.log(`${activePlayers[i].name} has chosen to stand`)
-            standingPlayers.push()
-            console.log(`${activePlayers[i].name} is now waiting for the rounds to conclude`)
-            }
+            else if (turnTakenPlayers[i] === "s") {
+                stand(activePlayers[i])
+                console.log(`${activePlayers[i].name} has chosen to stand. They will now wait until the rounds have concluded for the final result.`)
+                }
         }
+        console.log("")
         functionConnecter()
     }
 }
@@ -104,16 +120,22 @@ const playerActions = () => {
 // Game functions
 
 const greeting = () => {
-    console.log("Hello and welcome to my game of Blackjack!")
+    console.log("Hello and welcome to my game of Blackjack!\nI hope you enjoy playing.\n")
     console.log("**** RULES HERE")
-    rl.question("To begin, please enter the number of players: ", numOfPlayers => {
+    rl.question("To begin the game, please enter the number of players: ", numOfPlayers => {
         const participants = parseInt(numOfPlayers)
-        if (Number.isNaN(participants)) {
-            console.log(`${numOfPlayers} is not a valid number. Please try again.`)
+        if (!Number.isInteger(participants)) {
+            console.log(`"${numOfPlayers}" is not a valid number. Please try again.`)
+            rl.close()
+        } else if (participants < 2) {
+            console.log("A minimum of 2 participants is required to play this game.")
+            rl.close()
+        } else if (participants > 26) {
+            console.log("A maximum of 26 participants can play this game.")
             rl.close()
         } else {
-            console.log(`Thank you. We will now prepare the game for ${numOfPlayers} people.`)
-            let startingPlayers = startGame(numOfPlayers)
+            console.log(`Thank you. We will now prepare the game for ${participants} people.\n`)
+            const startingPlayers = startGame(participants)
             activePlayers.push(...startingPlayers)
             functionConnecter()
         }
@@ -121,19 +143,9 @@ const greeting = () => {
 }
 
 const startGame = (numOfPlayers) => {
-    if (numOfPlayers < 2) {
-        console.log("A minimum of 2 participants is required to play this game.")
-        return "A minimum of 2 participants is required to play this game."
-    }
-    if (numOfPlayers > 26) {
-        console.log("A maximum of 26 participants can play this game.")
-        return "A maximum of 26 participants can play this game."
-    }
-
-    console.log(`Dealing cards for ${numOfPlayers} players...`)
+    console.log(`Dealing cards for ${numOfPlayers} players...\n`)
 
     let players = []
-
     while(numOfPlayers > 0) {
         players.push({
             name: randomName(),
@@ -147,7 +159,7 @@ const startGame = (numOfPlayers) => {
 }
 
 const tallyCards = (players) => {
-    console.log("The scores will now be calculated...")
+    console.log("The scores will now be calculated...\n")
     players.forEach((player) => {
         let scoreEvaluation = 0
         player.hand.forEach((card) => {
@@ -166,7 +178,7 @@ const tallyCards = (players) => {
 }
 
 const updateStatus = (players) => {
-    console.log("player statuses will now be updated...")
+    console.log("Preparing the results...\n")
     let validPlayers = []
     players.forEach((player) => {
         if(player.score > 21) {
@@ -184,9 +196,10 @@ const hit = (player) => {
 }
 
 const stand = (player) => {
-    if(player.score <= 21) {
+    if (player.score <= 21) {
         player.status = "stand"
-    } else {bustedPlayers.push(player)}
+        standingPlayers.push(player)
+    }
     return player
 }
 
@@ -206,7 +219,9 @@ const findWinner = (playersOnStand) => {
         winners.forEach((winner) => {
             winner.status = "draw"
         })
-    } else {winners[0].status = "winner"}
+    } else if (winners.length === 1) {
+        winners[0].status = "winner"
+    }
     return winners
 }
 
