@@ -1,8 +1,14 @@
 const { dealCards, randomName } = require("./src/utils")
-const readline = require("node:readline/promises")
-const {deck, J, Q, K, A} = require("./src/deck")
+const readline = require("node:readline")
+const {A} = require("./src/deck")
+const { start } = require("node:repl")
 
 // Global variables
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+})
 
 let activePlayers = []
 
@@ -26,31 +32,32 @@ let winningPlayers = []
 //     })
 // }
 
-// gameProgression = () => {
-//     const numOfPlayers = greeting()
-//     startGame(numOfPlayers)
-// }
+const gameProgression = () => {
+    console.log("active players in PROGRESSION: ", activePlayers)
+    tallyCards(activePlayers)
+    updateStatus(activePlayers)
+    let counter = 1
+    activePlayers.forEach((player) => {
+        console.log(`Player ${counter} will be known as ${player.name}, their current hand is  and their score is ${player.score}`)
+        counter++
+    })
+}
 
 const greeting = () => {
-    // const rl = readline.createInterface({
-    //     input: process.stdin,
-    //     output: process.stdout
-    // })
-    // console.log("Hello and welcome to my game of Blackjack!")
-    // rl.question(`Please enter your name: `, name => {
-    //     console.log(`Hello ${name}, thank you for playing!`)
-    // }).then(() => {
-    //     rl.question(`Please state how many people are playing: `, num => {
-    //         console.log("Thank you.")
-    //         const numOfPlayers = parseInt(num)
-    //         if(typeof numOfPlayers === NaN) {
-    //             return console.log("An invalid number has been entered. Please try again.")
-    //         } else {startGame(numOfPlayers)}
-    //     })
-    //     .then(() => {
-    //         rl.close()
-    //     })
-    // })
+    console.log("Hello and welcome to my game of Blackjack!")
+    rl.question(`Thank you for playing. Please enter the number of players: `, numOfPlayers => {
+        const participants = parseInt(numOfPlayers)
+        if (Number.isNaN(participants)) {
+            console.log(`${numOfPlayers} is not a valid number. Please try again.`)
+            rl.close()
+        } else {
+            console.log(`Thank you. We will now prepare the game for ${numOfPlayers} people.`)
+            rl.close()
+            let startingPlayers = startGame(numOfPlayers)
+            activePlayers.push(...startingPlayers)
+            gameProgression()
+        }
+    })
 }
 
 const startGame = (numOfPlayers) => {
@@ -63,10 +70,12 @@ const startGame = (numOfPlayers) => {
         return "A maximum of 26 participants can play this game."
     }
 
-    console.log(`Dealing cards for ${numOfPlayers} players.`)
+    console.log(`Dealing cards for ${numOfPlayers} players...`)
+
+    let players = []
 
     while(numOfPlayers > 0) {
-        activePlayers.push({
+        players.push({
             name: randomName(),
             hand: dealCards(2),
             score: 0,
@@ -74,22 +83,26 @@ const startGame = (numOfPlayers) => {
         })
         numOfPlayers--
     }
-    return activePlayers
+    return players
 }
 
 const tallyCards = (players) => {
+    console.log("The scores will now be calculated...")
     players.forEach((player) => {
         let scoreEvaluation = 0
         player.hand.forEach((card) => {
             for (const suit in card) {
                 let suitNumber = card[suit]
-                if(suitNumber === A && player.score <= 10) {
+                if(typeof suitNumber === "string") {
+                    scoreEvaluation += 10
+                } else if(suitNumber === A && player.score <= 10) {
                     scoreEvaluation = scoreEvaluation + 11
                 } else {scoreEvaluation += suitNumber}
             }
             player.score = scoreEvaluation
         })
     })
+    console.dir(players)
     return players
 }
 
@@ -139,7 +152,7 @@ const findWinner = (playersOnStand) => {
 
 // gameProgression()
 
-// greeting()
+greeting()
 
 // startGame(4)
 module.exports = {greeting, startGame, tallyCards, updateStatus, hit, stand, findWinner}

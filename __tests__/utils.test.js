@@ -1,10 +1,6 @@
-const { dealCards, randomName, checkValidPlayer } = require("../src/utils");
+const { dealCards, randomName, suitName } = require("../src/utils");
 const players = require("../src/players")
 const {deck, J, Q, K, A} = require("../src/deck")
-
-// afterEach(() => {
-//     jest.restoreAllMocks()
-// })
 
 describe('dealCards', () => {
     test("function returns array of card objects", () => {
@@ -36,67 +32,23 @@ describe('randomName', () => {
     // need to figure out how to ensure name is only called once so there arent duplicated names for players
 });
 
-// describe('checkValidPlayer', () => {
-//     test.only("function returns true where player status is set to valid or stand", () => {
-//         const input = [{
-//             name: "Sierra",
-//             hand: [{c:3}, {s:2}, {h:4}, {s:5}],
-//             score: 14,
-//             status: "stand"
-//         },{
-//             name: "Zulu",
-//             hand: [{d:6}, {h:K}, {d:2}, {d:A}],
-//             score: 19,
-//             status: "invalid"
-//         },{
-//             name: "Wednesday",
-//             hand: [{h:9}, {d:8}, {h:3}],
-//             score: 20,
-//             status: "stand"
-//         },{
-//             name: "Alfa",
-//             hand: [{s:Q}, {c:J}, {s:A}],
-//             score: 21,
-//             status: "invalid"
-//         }]
-//         input.forEach((player) => {
-//             if(player.status === "invalid") {
-//                 jest.replaceProperty(player, "status", "valid")
-//             }
-//             console.log("outside if: ", player)
-//         })
-//         const received = checkValidPlayer(input)
-//         expect(received).toBe(true)
-//     })
-//     test.only("function returns false where player status is set to bust", () => {
-//         const input = [{
-//             name: "Sierra",
-//             hand: [{c:3}, {s:10}, {h:4}, {s:5}],
-//             score: 22,
-//             status: "valid"
-//         },{
-//             name: "Zulu",
-//             hand: [{d:6}, {h:K}, {d:Q}, {d:A}],
-//             score: 27,
-//             status: "valid"
-//         },{
-//             name: "Wednesday",
-//             hand: [{h:9}, {d:8}, {h:7}],
-//             score: 24,
-//             status: "valid"
-//         },{
-//             name: "Alfa",
-//             hand: [{s:Q}, {c:J}, {s:K}],
-//             score: 30,
-//             status: "valid"
-//         }]
-//         input.forEach((player) => {
-//             if(player.score > 21) {
-//                 jest.replaceProperty(player, "status", "bust")
-//             }
-//             console.log("outside if: ", player)
-//         })
-//         const received = checkValidPlayer(input)
-//         expect(received).toBe(false)
-//     })
-// });
+describe.only('suitName', () => {
+    test("should return the card names of whatever hand is passed", () => {
+        const input = [{h:2}, {d:7}]
+    const received = suitName(input)
+    const expectedResult = "2 of Hearts, 7 of Diamonds"
+    expect(received).toBe(expectedResult)
+    })
+    test("should return the card names of whatever hand is passed", () => {
+        const input = [{c:A}, {d:J}, {h:Q}, {s:K}]
+    const received = suitName(input)
+    const expectedResult = "Ace of Clubs, Jack of Diamonds, Queen of Hearts, King of Spades"
+    expect(received).toBe(expectedResult)
+    })
+    test("should return an error message where an empty hand is passed", () => {
+        const input = [{}, {}]
+    const received = suitName(input)
+    const expectedResult = "There are no cards."
+    expect(received).toBe(expectedResult)
+    })
+});

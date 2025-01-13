@@ -31,6 +31,27 @@ exports.randomName = () => {
     return players[index]
 }
 
-// exports.checkValidPlayer = (players) => {
-//     if(players.score > )
-// }
+exports.suitName = (playerHand) => {
+    let cardString = ""
+    playerHand.forEach((card) => {
+        for (const suit in card) {
+            let suitNumber = card[suit]
+            if (suitNumber === A) {
+                cardString += "Ace"
+            } else cardString += suitNumber.toString()
+            console.log("after suitNum: ", cardString)
+            if (suit === "c") {
+                cardString += " of Clubs, "
+            } else if (suit === "d") {
+                cardString += " of Diamonds, "
+            } else if (suit === "h") {
+                cardString += " of Hearts, "
+            } else if (suit === "s") {
+                cardString += " of Spades, "
+            }
+        }
+    })
+    if (cardString) {
+        return cardString.slice(0, -2)
+    } else {return "There are no cards."}
+}

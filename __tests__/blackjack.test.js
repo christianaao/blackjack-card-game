@@ -1,12 +1,6 @@
 const {greeting, startGame, tallyCards, updateStatus, hit, stand, findWinner} = require("../blackjack")
 const {deck, J, Q, K, A} = require("../src/deck")
 
-// const readline = require("node:readline")
-// const rl = readline.createInterface({
-//         input: process.stdin,
-//         output: process.stdout
-//     })
-
 /* Test Objectives: 
  - should not mutate object/array
  - should not return the same object/array
