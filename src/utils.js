@@ -31,15 +31,17 @@ exports.randomName = () => {
     return players[index]
 }
 
-exports.suitName = (playerHand) => {
+exports.readSuitName = (playerHand) => {
     let cardString = ""
     playerHand.forEach((card) => {
         for (const suit in card) {
             let suitNumber = card[suit]
+            // checking for A, J, Q and K
             if (suitNumber === A) {
                 cardString += "Ace"
             } else cardString += suitNumber.toString()
-            console.log("after suitNum: ", cardString)
+
+            // checking for suit
             if (suit === "c") {
                 cardString += " of Clubs, "
             } else if (suit === "d") {

@@ -1,4 +1,4 @@
-const { dealCards, randomName, suitName } = require("../src/utils");
+const { dealCards, randomName, readSuitName } = require("../src/utils");
 const players = require("../src/players")
 const {deck, J, Q, K, A} = require("../src/deck")
 
@@ -32,22 +32,22 @@ describe('randomName', () => {
     // need to figure out how to ensure name is only called once so there arent duplicated names for players
 });
 
-describe.only('suitName', () => {
+describe('readSuitName', () => {
     test("should return the card names of whatever hand is passed", () => {
         const input = [{h:2}, {d:7}]
-    const received = suitName(input)
+    const received = readSuitName(input)
     const expectedResult = "2 of Hearts, 7 of Diamonds"
     expect(received).toBe(expectedResult)
     })
     test("should return the card names of whatever hand is passed", () => {
         const input = [{c:A}, {d:J}, {h:Q}, {s:K}]
-    const received = suitName(input)
+    const received = readSuitName(input)
     const expectedResult = "Ace of Clubs, Jack of Diamonds, Queen of Hearts, King of Spades"
     expect(received).toBe(expectedResult)
     })
     test("should return an error message where an empty hand is passed", () => {
         const input = [{}, {}]
-    const received = suitName(input)
+    const received = readSuitName(input)
     const expectedResult = "There are no cards."
     expect(received).toBe(expectedResult)
     })
