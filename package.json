@@ -7,10 +7,16 @@
     "test": "jest",
     "start": "node blackjack.js"
   },
-  "keywords": ["blackjack", "card-game"],
+  "keywords": [
+    "blackjack",
+    "card-game"
+  ],
   "author": "Olamide Olawuyi",
   "license": "ISC",
   "devDependencies": {
     "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "chalk": "4.1.2"
   }
 }

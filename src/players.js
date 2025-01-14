@@ -1,1 +1,1 @@
-module.exports = ["Alfa", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliett", "Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "Xray", "Yankee", "Zulu"]
+module.exports = ["Alfa", "Bravo", "Charlie", "Dakota", "Ekko", "Foxtrot", "Gabriel", "Haven", "India", "Juliett", "Kilo", "Lima", "Mike", "November", "Oscar", "Parker", "Quebec", "Romeo", "Sierra", "Tango", "Uziel", "Victor", "Whiskey", "Xia", "Yorkie", "Zulu"]
