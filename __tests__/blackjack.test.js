@@ -22,19 +22,6 @@ describe('startGame', () => {
             expect(player.hand.length).toBe(2)
         })
     })
-    // these tests are now redundant as i moved the functions to greeting()
-    // test("game does not continue if there is less than 2 players participating", () => {
-    //     const input = 1
-    //     const received = startGame(input)
-    //     const expectedResult = "A minimum of 2 participants is required to play this game."
-    //     expect(received).toBe(expectedResult)
-    // })
-    // test("game does not continue if there is more than 26 players participating", () => {
-    //     const input = 27
-    //     const received = startGame(input)
-    //     const expectedResult = "A maximum of 26 participants can play this game."
-    //     expect(received).toBe(expectedResult)
-    // })
 });
 describe('tallyCards', () => {
     test("function updates the given player's score based on their current hand", () => {

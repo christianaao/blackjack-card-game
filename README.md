@@ -13,7 +13,7 @@ Repo: https://github.com/christianaao/blackjack-card-game
 This project was written in JavaScript. There is no frontend or API server for this project (but maybe in the future).
 
 This project was created using the following frameworks:
-- Node.js
+- **Node.js**
 - **Jest:** for testing
 
 ## Running This Project Locally
@@ -36,12 +36,12 @@ Ensure that you have installed Node.js: https://nodejs.org/en/download
 
 To start the game locally, run:
    ```bash
-   pnpm start  
+   pnpm start
    ```
 
 To run the test suites and verify the game’s functionality, run:
    ```bash
-   pnpm test __tests__/file-you-want-to-test.js
+   pnpm test
    ```
 
 ☺ I hope you enjoy playing the game ☺
@@ -51,5 +51,4 @@ To run the test suites and verify the game’s functionality, run:
 - "jest": "^29.7.0"
 
 ### Dependencies
-
 - _none_
