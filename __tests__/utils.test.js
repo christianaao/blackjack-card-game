@@ -1,6 +1,6 @@
 const { dealCards, randomName, readSuitName } = require("../src/utils");
 const players = require("../src/players")
-const {deck, J, Q, K, A} = require("../src/deck")
+const {J, Q, K, A} = require("../src/deck")
 
 describe('dealCards', () => {
     test("function returns array of card objects", () => {
