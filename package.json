@@ -1,14 +1,14 @@
 {
   "name": "blackjack-card-game",
   "version": "1.0.0",
-  "description": "blackjack game",
+  "description": "cli blackjack card game",
   "main": "blackjack.js",
   "scripts": {
     "test": "jest",
     "start": "node blackjack.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["blackjack", "card-game"],
+  "author": "Olamide Olawuyi",
   "license": "ISC",
   "devDependencies": {
     "jest": "^29.7.0"

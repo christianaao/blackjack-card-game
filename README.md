@@ -1,51 +1,55 @@
-# Blackjack Card Game
+# CLI Game: Blackjack
 
-## Game Rules
+## About This Project
 
-The goal of the game is to get a hand of cards that’s worth as close to 21 points as possible. If a player’s hand goes over 21 points, they have lost. 
+This project is a Command Line Interfect (CLI) game based on the famous casino card game, Blackjack.
 
-The player is initially dealt two cards. They may then choose to ‘hit’ (draw a card) or ‘stand’ (stop drawing cards). If they ‘hit’, then the new card’s value is added to the hand total. If this total exceeds 21, the player is ‘bust’, and loses. 
+In this game, the goal is to get a hand of cards that’s worth as close to 21 points as possible! If a player’s hand goes over 21 points, they are eliminated from the game. 
 
-Once all players have finished this process, the highest scoring hand wins. 
+## Project Links
+Repo: https://github.com/christianaao/blackjack-card-game
 
-Blackjack Deck:
--	Number cards are worth their face value (2-10) 
--	Jacks, queens, and kings are worth 10 each
--	Aces are worth either 1 or 11 (player chooses)
--	The suit of the card does not matter.
+## Features of This Project
+This project was written in JavaScript. There is no frontend or API server for this project (but maybe in the future).
 
-## Screnarios
+This project was created using the following frameworks:
+- Node.js
+- **Jest:** for testing
 
-Given I play a game of blackjack
-When I am dealt my opening hand
-Then I have two cards
+## Running This Project Locally
+### Installation
 
-Given I have a valid hand of cards
-When I choose to ‘hit’
-Then I receive another card
-And my score is updated
+Ensure that you have installed Node.js: https://nodejs.org/en/download
 
-Given I have a valid hand of cards
-When I choose to ‘stand’
-Then I receive no further cards
-And my score is evaluated
+**_In order to run this game locally:_**
 
-Given my score is updated or evaluated
-When it is 21 or less
-Then I have a valid hand
+1. In your terminal, locate the directory you would like to save the code to and enter the following. This command will clone this repo:
+   ```bash
+   git clone https://github.com/christianaao/blackjack-card-game
+   ```
 
-Given my score is updated
-When it is 22 or more 
-Then I am ‘bust’ and do not have a valid hand
+2. In the cloned directory, type `pnpm install` in your terminal to install all dependencies.
 
-Given I have a king and an ace
-When my score is evaluated
-Then my score is 21
+3. Enter the following Scripts into your packet.json file:
+- "test": "jest",
+- "start": "node blackjack.js"
 
-Given I have a king, a queen, and an ace
-When my score is evaluated
-Then my score is 21
+To start the game locally, run:
+   ```bash
+   pnpm start  
+   ```
 
-Given that I have a nine, an ace, and another ace
-When my score is evaluated
-Then my score is 21
+To run the test suites and verify the game’s functionality, run:
+   ```bash
+   pnpm test __tests__/file-you-want-to-test.js
+   ```
+
+☺ I hope you enjoy playing the game ☺
+
+## Dependencies and Software Requirements
+### Dev Dependencies
+- "jest": "^29.7.0"
+
+### Dependencies
+
+- _none_
