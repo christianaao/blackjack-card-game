@@ -38,7 +38,9 @@ exports.readSuitName = (playerHand) => {
             let suitNumber = card[suit]
             // checking for A, J, Q and K
             if (suitNumber === A) {
-                cardString += "Ace"
+                cardString += "Ace (1)"
+            } else if (suitNumber === 11) {
+                cardString += "Ace (11)"
             } else cardString += suitNumber.toString()
 
             // checking for suit

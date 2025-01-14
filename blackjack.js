@@ -1,6 +1,7 @@
 const { dealCards, randomName, readSuitName } = require("./src/utils")
 const readline = require("node:readline")
 const {A} = require("./src/deck")
+const { forEach } = require("./src/players")
 
 // Global variables
 
@@ -29,15 +30,14 @@ const functionConnecter = () => {
         rl.close()
         let winners = findWinner(standingPlayers)
         if (winners.length === 1) {
-            console.log(`\nTHE WINNER IS: ${winners[0].name}!!!`)
+            console.log(`\nWINNER!\nThe Winner is: ${winners[0].name}! They finished with a score of ${winners[0].score}. Finishing hand: ${readSuitName(winners[0].hand)}`)
         } else if (winners.length === 0) {
             console.log("\nHOUSE WINS! Every player was eliminated this round!")
         } else {
-            console.log("\nIT'S A DRAW")
-            let winnersList = "The winners are: "
-            winners.forEach((winner) => winnersList += winner.name + ", ")
-            winnersList = winnersList.substring(0, winnersList.length-2)
-            console.log(winnersList + "!")
+            console.log("\nIT'S A DRAW!")
+            winners.forEach((winner) => {
+                console.log(`${winner.name} finished with a score of ${winner.score}. Finishing hand: ${readSuitName(winner.hand)}`)
+            })
         }
     } else {
         console.log("\nPLAYERS WILL NOW CHOOSE TO 'HIT' OR 'STAND'")
@@ -160,18 +160,21 @@ const startGame = (numOfPlayers) => {
 
 const tallyCards = (players) => {
     console.log("The scores will now be calculated...\n")
+
     players.forEach((player) => {
-        let scoreEvaluation = 0
+        let playerHand = player.hand
+        player.score = 0
         player.hand.forEach((card) => {
             for (const suit in card) {
                 let suitNumber = card[suit]
                 if(typeof suitNumber === "string") {
-                    scoreEvaluation += 10
+                    player.score += 10
                 } else if(suitNumber === A && player.score <= 10) {
-                    scoreEvaluation = scoreEvaluation + 11
-                } else {scoreEvaluation += suitNumber}
+                    let index = playerHand.indexOf(card)
+                    playerHand.splice(index, 1, {[suit]:11})
+                    player.score += 11
+                } else {player.score += suitNumber}
             }
-            player.score = scoreEvaluation
         })
     })
     return players

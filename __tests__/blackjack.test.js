@@ -1,4 +1,4 @@
-const {greeting, startGame, tallyCards, updateStatus, hit, stand, findWinner} = require("../blackjack")
+const {startGame, tallyCards, updateStatus, hit, stand, findWinner} = require("../blackjack")
 const {J, Q, K, A} = require("../src/deck")
 
 /* Test Objectives: 
@@ -7,52 +7,6 @@ const {J, Q, K, A} = require("../src/deck")
  - should return expected result
 */
 
-describe.skip('greeting', () => {
-    // test("function should return the number of players participating in the game", () => {
-    //     return greeting().then((result => {
-    //         expect(result).toBe(2)
-    //     }))
-    // })
-    // test("function should return the number of players participating in the game", () => {
-    //     const mockFn = jest.fn()
-    //     const convertInputToInt = (mockFn) => {
-    //         rl.question(`Please state how many people are playing: `, num => {
-    //             console.log(`You entered: ${num}.`)
-    //             rl.close()
-    //             const numOfPlayers = parseInt(num)
-    //             if(typeof numOfPlayers === NaN) {
-    //                 return console.log("An invalid number has been entered. Please try again.")
-    //             }
-    //             mockFn(num, numOfPlayers)
-    //         })
-    //     }
-    //     convertInputToInt(mockFn)
-    //     expect(mockFn).toBe(expectedResult)
-    // })
-    // test("function should return the number of players participating in the game", () => {
-    //     const mockFn = jest.fn()
-    //     const testFn = (mockFn) => {
-    //         rl.question(`Please state how many people are playing: `, num => {
-    //             console.log(`You entered: ${num}.`)
-    //             rl.close()
-    //             const numOfPlayers = parseInt(num)
-    //             if(typeof numOfPlayers === NaN) {
-    //                 return console.log("An invalid number has been entered. Please try again.")
-    //             }
-    //             mockFn(num, numOfPlayers)
-    //         })
-    //     }
-    //     const received = (test)
-    //     const expectedResult = 2
-    //     expect(received).toBe(expectedResult)
-    // })
-    test("game does not continue if an invalid data type is given", () => {
-        const input = NaN
-        const received = startGame(input)
-        const expectedResult = "An invalid number has been entered. Please try again."
-        expect(received).toBe(expectedResult)
-    })
-});
 describe('startGame', () => {
     test("function returns a card object for each participating player in an array", () => {
         const input = 2
@@ -135,7 +89,7 @@ describe('tallyCards', () => {
             status: "valid"
         },{
             name: "Zulu",
-            hand: [{d:A}, {h:K}],
+            hand: [{d:11}, {h:K}],
             score: 21,
             status: "valid"
         },{
@@ -155,12 +109,12 @@ describe('tallyCards', () => {
         const input = [{
             name: "Sierra",
             hand: [{c:3}, {s:2}, {h:4}, {s:5}],
-            score: 5,
+            score: 9,
             status: "valid"
         },{
             name: "Zulu",
             hand: [{d:6}, {h:K}, {d:2}, {d:A}],
-            score: 16,
+            score: 18,
             status: "valid"
         },{
             name: "Wednesday",
@@ -201,13 +155,13 @@ describe('tallyCards', () => {
         const input = [{
             name: "Sierra",
             hand: [{c:9}, {h:A}, {s:A}],
-            score: 0,
+            score: 20,
             status: "valid"
         }]
         const received = tallyCards(input)
         const expectedResult = [{
             name: "Sierra",
-            hand: [{c:9}, {h:A}, {s:A}],
+            hand: [{c:9}, {h:11}, {s:A}],
             score: 21,
             status: "valid"
         }]
@@ -217,43 +171,43 @@ describe('tallyCards', () => {
         const input = [{
             name: "Sierra",
             hand: [{c:9}, {h:A}, {s:A}],
-            score: 0,
+            score: 20,
             status: "valid"
         },{
             name: "Zulu",
             hand: [{c:10}, {h:J}, {d:A}],
-            score: 0,
+            score: 20,
             status: "valid"
         },{
             name: "Wednesday",
-            hand: [{c:5}, {d:6}, {c:A}],
-            score: 0,
+            hand: [{c:2}, {d:3}, {c:A}],
+            score: 5,
             status: "valid"
         },{
             name: "Alfa",
             hand: [{s:A}, {h:A}, {d:A}],
-            score: 0,
+            score: 12,
             status: "valid"
         }]
         const received = tallyCards(input)
         const expectedResult = [{
             name: "Sierra",
-            hand: [{c:9}, {h:A}, {s:A}],
+            hand: [{c:9}, {h:11}, {s:A}],
             score: 21,
             status: "valid"
         },{
             name: "Zulu",
-            hand: [{c:10}, {h:J}, {d:A}],
+            hand: [{c:10}, {h:J}, {d:1}],
             score: 21,
             status: "valid"
         },{
             name: "Wednesday",
-            hand: [{c:5}, {d:6}, {c:A}],
-            score: 12,
+            hand: [{c:2}, {d:3}, {c:11}],
+            score: 16,
             status: "valid"
         },{
             name: "Alfa",
-            hand: [{s:A}, {h:A}, {d:A}],
+            hand: [{s:11}, {h:A}, {d:A}],
             score: 13,
             status: "valid"
         }]
