@@ -1,12 +1,6 @@
 const {startGame, tallyCards, updateStatus, hit, stand, findWinner} = require("../blackjack")
 const {J, Q, K, A} = require("../src/deck")
 
-/* Test Objectives: 
- - should return a new object/array, where required
- - should return the correct data type
- - should return expected result
-*/
-
 describe('startGame', () => {
     test("function returns a card object for each participating player in an array", () => {
         const input = 2

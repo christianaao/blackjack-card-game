@@ -27,9 +27,9 @@ describe('dealCards', () => {
 describe('randomName', () => {
     test("should return a name from the players list", () => {
         const received = randomName()
-        expect(players).toContain(received)
+        expect(players).not.toContain(received)
+        expect(players.length).toBe(25)
     })
-    // need to figure out how to ensure name is only called once so there arent duplicated names for players
 });
 
 describe('readSuitName', () => {

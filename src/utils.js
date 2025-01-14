@@ -28,7 +28,8 @@ exports.dealCards = (numOfCards) => {
 
 exports.randomName = () => {
     let index = Math.floor(Math.random() * players.length)
-    return players[index]
+    const name = players.splice(index, 1)
+    return name
 }
 
 exports.readSuitName = (playerHand) => {

@@ -1,7 +1,6 @@
 const { dealCards, randomName, readSuitName } = require("./src/utils")
 const readline = require("node:readline")
 const {A} = require("./src/deck")
-const { forEach } = require("./src/players")
 
 // Global variables
 
@@ -18,7 +17,7 @@ let standingPlayers = []
 
 let round = 1
 
-// Main utility functions
+// Checker functions
 
 const functionConnecter = () => {
     tallyCards(activePlayers)
