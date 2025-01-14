@@ -3,20 +3,6 @@ const {A} = require("./src/deck")
 const readline = require("node:readline")
 const chalk = require("chalk")
 
-/* Colour codes
-player actions - hit, stand - blue
-hand - pink
-eliminated - red
-winner - green bg
-standing - orange
-
-pending/system working - yellow
-error msg, rules - red
-round / announcement - blue
-title caps - blue bg
-*/
-
-
 // Global variables
 
 const rl = readline.createInterface({
