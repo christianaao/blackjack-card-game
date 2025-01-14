@@ -2,8 +2,6 @@ const {greeting, startGame, tallyCards, updateStatus, hit, stand, findWinner} = 
 const {J, Q, K, A} = require("../src/deck")
 
 /* Test Objectives: 
- - should not mutate object/array
- - should not return the same object/array
  - should return a new object/array, where required
  - should return the correct data type
  - should return expected result
@@ -414,7 +412,7 @@ describe('stand', () => {
         expect(received).toEqual(expectedResult)
     })
 });
-describe.only('findWinner', () => {
+describe('findWinner', () => {
     test("function takes array of standing players and returns an array with the player's status set to winner where the score is the closest to 21", () => {
         const input = [{
             name: "Sierra",
