@@ -13,9 +13,9 @@ Repo: https://github.com/christianaao/blackjack-card-game
 This project was written in JavaScript. There is no frontend or API server for this project (but maybe in the future).
 
 This project was created using the following frameworks:
-- **Node.js** - runtime environment
+- **Node.js:** runtime environment
 - **Jest:** for testing
-- **Chalk** for font colours and styles
+- **Chalk:** for font colours and styles
 
 ## Running This Project Locally
 ### Installation
