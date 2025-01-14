@@ -120,7 +120,13 @@ const playerActions = () => {
 
 const greeting = () => {
     console.log("Hello and welcome to my game of Blackjack!\nI hope you enjoy playing.\n")
-    console.log("**** RULES HERE")
+    console.log(`GAME RULES:\n
+
+        ♣ 
+        ♦
+        ♥
+        ♠
+        `)
     rl.question("To begin the game, please enter the number of players: ", numOfPlayers => {
         const participants = parseInt(numOfPlayers)
         if (!Number.isInteger(participants)) {

@@ -1,27 +1,59 @@
 const { dealCards, randomName, readSuitName } = require("../src/utils");
 const players = require("../src/players")
-const {J, Q, K, A} = require("../src/deck")
+const {deck, J, Q, K, A} = require("../src/deck")
 
 describe('dealCards', () => {
-    test("function returns array of card objects", () => {
+    test("function returns array of requested number of cards as objects", () => {
         const input = 2
         const received = dealCards(input)
+        expect(received.length).toBe(2)
         received.forEach((card) => {
             const checkObject = card instanceof Object
             expect(checkObject).toBe(true)
         })
     })
-    test("function returns the requested number of cards", () => {
+    test("function removes cards from the original array", () => {
         const input = 2
         const received = dealCards(input)
-        expect(received.length).toBe(2)
+        let compareSuit = ""
+        let checkSuitNum = 0
+        received.forEach((card) => {
+            // find random suit and card number that was returned
+            for (let suit in card) {
+                let cardNumber = card[suit]
+                compareSuit = suit
+                checkSuitNum = cardNumber
+            // compare against deck current card numbers to see that it has been removed
+                for (let deckSuit in deck) {
+                    let deckSuitArray = deck[deckSuit]
+                    if (deckSuit === compareSuit) {
+                        expect(deckSuitArray).not.toContain(checkSuitNum)
+                    }
+                }
+            }
+        })
     })
-    test("function returns the requested number of cards", () => {
+    test("function removes cards from the original array", () => {
         const input = 6
         const received = dealCards(input)
-        expect(received.length).toBe(6)
+        let compareSuit = ""
+        let checkSuitNum = 0
+        received.forEach((card) => {
+            // find random suit and card number that was returned
+            for (let suit in card) {
+                let cardNumber = card[suit]
+                compareSuit = suit
+                checkSuitNum = cardNumber
+            // compare against deck current card numbers to see that it has been removed
+                for (let deckSuit in deck) {
+                    let deckSuitArray = deck[deckSuit]
+                    if (deckSuit === compareSuit) {
+                        expect(deckSuitArray).not.toContain(checkSuitNum)
+                    }
+                }
+            }
+        })
     })
-    //need to figure out how to ensure only 1 of each card can be called, i.e. ensure 2 players can't ever have 2 of Hearts at the same time
 });
 
 describe('randomName', () => {

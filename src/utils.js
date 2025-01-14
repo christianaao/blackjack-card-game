@@ -12,9 +12,10 @@ exports.dealCards = (numOfCards) => {
         //get random card number
         let cards = deck[randomSuit]
         let cardIndex = Math.floor(Math.random() * cards.length)
-        let randomCard = cards[cardIndex]
-
-        let finalCard = {[randomSuit]: randomCard}
+        
+        // removing card number from the suit
+        let randomCard = cards.splice(cardIndex, 1)
+        let finalCard = {[randomSuit]: randomCard[0]}
         return finalCard
     }
 
