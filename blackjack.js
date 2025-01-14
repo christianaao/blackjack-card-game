@@ -20,10 +20,14 @@ let round = 1
 // Checker functions
 
 const functionConnecter = () => {
+    // player score/status updates
     tallyCards(activePlayers)
     updateStatus(activePlayers)
 
+    // announce results
     progressAnouncement(round)
+
+    // checking if no more active players to find a winner
     if (activePlayers.length === 0) {
         console.log("THE ROUNDS ARE NOW CONCLUDED.\nThe scores will now be evaluated to find the winner...\n")
         rl.close()
@@ -47,6 +51,7 @@ const functionConnecter = () => {
 
 const progressAnouncement = (round) => {
     if (round === 1) {
+        // first round announcements
         let counter = 1
         console.log("STARTING RESULTS:")
         activePlayers.forEach((player) => {
@@ -54,6 +59,7 @@ const progressAnouncement = (round) => {
             counter++
         })
     } else {
+        // round announcements
         console.log(`ROUND ${round} RESULTS:\n`)
         bustedPlayers.forEach((bustPlayer) => {
             console.log(`${bustPlayer.name}'s current hand is ${readSuitName(bustPlayer.hand)}, and their score is ${bustPlayer.score}. They have been eliminated from the game.\n`)
@@ -121,11 +127,25 @@ const playerActions = () => {
 const greeting = () => {
     console.log("Hello and welcome to my game of Blackjack!\nI hope you enjoy playing.\n")
     console.log(`GAME RULES:\n
+        The goal of the game is to get a hand of cards that’s worth as close to 21 points as possible.
+        If a player’s hand goes over 21 points, they are eliminated from the game. 
+        
+        Each player will be dealt two cards at the start of the game.
+        Each round, players can take an action; to either ‘hit’ to draw an additional card, or ‘stand’ to avoid drawing any more cards.
+        Each new card from a ‘hit’ will be added to the player's hand and score total. If their score exceeds 21, the player is ‘bust’ and is eliminated.
 
-        ♣ 
-        ♦
-        ♥
-        ♠
+        Once all players have finished this process, the highest scoring hand wins.
+
+        The Deck will contain 52 cards:
+
+        ♣  The suit of the card does not matter
+        ♦  Number cards are worth their face value (2-10)
+        ♥  Jacks, Queens, and Kings are worth 10 each
+        ♠  Aces are worth either 1 or 11
+        - NOTE ON ACES: Normally, a player chooses this however, in this programme, Aces will default to 11 where a player's current score is 10 or less, and will default to 1 where their score is more than 10. Use this to plan strategically!
+        
+
+        Now, enjoy the game, and good luck! ☻
         `)
     rl.question("To begin the game, please enter the number of players: ", numOfPlayers => {
         const participants = parseInt(numOfPlayers)
@@ -135,8 +155,8 @@ const greeting = () => {
         } else if (participants < 2) {
             console.log("A minimum of 2 participants is required to play this game.")
             rl.close()
-        } else if (participants > 26) {
-            console.log("A maximum of 26 participants can play this game.")
+        } else if (participants > 8) {
+            console.log("A maximum of 8 participants can play this game.")
             rl.close()
         } else {
             console.log(`Thank you. We will now prepare the game for ${participants} people.\n`)

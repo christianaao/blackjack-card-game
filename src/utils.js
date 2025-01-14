@@ -43,7 +43,7 @@ exports.readSuitName = (playerHand) => {
                 cardString += "Ace (1)"
             } else if (suitNumber === 11) {
                 cardString += "Ace (11)"
-            } else cardString += suitNumber.toString()
+            } else {cardString += suitNumber.toString()}
 
             // checking for suit
             if (suit === "c") {
