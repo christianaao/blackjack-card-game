@@ -31,7 +31,7 @@ const functionConnecter = () => {
     // checking if no more active players to find a winner
     if (activePlayers.length === 0) {
         console.log(chalk.bgRedBright.bold("THE ROUNDS ARE NOW CONCLUDED.\n"))
-        console.log(chalk.yellowBright.bold("he scores will now be evaluated to find the winner...\n"))
+        console.log(chalk.yellowBright.bold("The scores will now be evaluated to find the winner...\n"))
         rl.close()
         let winners = findWinner(standingPlayers)
         if (winners.length === 1) {
@@ -61,7 +61,7 @@ const progressAnouncement = (round) => {
             counter++
         })
     } else {
-        // round announcements
+        // all other round announcements
         console.log(chalk.bgRedBright.bold(`ROUND ${round} RESULTS:\n`))
         bustedPlayers.forEach((bustPlayer) => {
             console.log(chalk.redBright.bold(`${bustPlayer.name}'s current hand is ${readSuitName(bustPlayer.hand)}, and their score is ${bustPlayer.score}. They have been eliminated from the game.\n`))
@@ -82,7 +82,7 @@ const playerActions = () => {
     const askPlayerAction = () => {
         // first player's turn takes place here:
         if(activePlayers.length !== 0) {
-            rl.question(rl.question(`${activePlayers[0].name}, please type "h" if you would like to hit, or "s" if you would like to stand: \n`, checkPlayerTurn))
+            rl.question(rl.question(`${activePlayers[0].name}, please type 'h' if you would like to HIT, or 's' if you would like to STAND: \n`, checkPlayerTurn))
         }
     }
 
@@ -92,13 +92,13 @@ const playerActions = () => {
         // check that player input is valid:
         if (input.toLowerCase() !== "h" && input.toLowerCase() !== "s") {
             //**** test this to ensure it doesnt mess up player cards
-            console.log(chalk.redBright.bold("Please ensure that you enter a valid option. The round will start again."))
+            console.log(chalk.redBright.bold("Please ensure that you enter a valid option. THE ROUND WILL START AGAIN."))
             playerActions()
         } else {
             turnTakenPlayers.push(input)
             // if every player has not yet taken their turn, ask again:
             if (turnTakenPlayers.length < currentPlayerCount) {
-                rl.question(`${activePlayers[turnTakenPlayers.length].name}, please type "h" if you would like to hit, or "s" if you would like to stand: \n`, checkPlayerTurn)
+                rl.question(`${activePlayers[turnTakenPlayers.length].name}, please type 'h' if you would like to HIT, or 's' if you would like to STAND: \n`, checkPlayerTurn)
             } else {console.log(chalk.bgRedBright.bold("\nALL PLAYERS HAVE TAKEN AN ACTION\n"))
                 console.log(chalk.yellowBright.bold("The results will now be revealed...\n"))
                 applyAction()
@@ -146,10 +146,10 @@ const greeting = () => {
         console.log(chalk.redBright.bold("         ♦  ") + "Number cards are worth their face value (2-10)")
         console.log(chalk.redBright.bold("         ♥  ") + "Jacks, Queens, and Kings are worth 10 each")
         console.log(chalk.redBright.bold("         ♠  ") + "Aces are worth either 1 or 11")
-        console.log(`       - NOTE ON ACES: Normally, a player chooses this however, in this programme, Aces will default to 11 where a player's current score is 10 or less, and will default to 1 where their score is more than 10. Use this to plan strategically!
+        console.log(`       - NOTE ON ACES: Normally, a player chooses whether the card is worth 1 or 11 however, in this programme, Aces will default to 11 where a player's current score is 10 or less, and will default to 1 where their score is more than 10. Use this to plan strategically!
             
             `)
-            console.log(chalk.redBright("You can also exit the game at any point by pressing CTRL + Z on your keyboard for WINDOWS, or Command + . for MAC.\n"))
+            console.log(chalk.redBright("You can also exit the game at any point by pressing ‘CTRL’ + ‘Z’ on your keyboard for WINDOWS, or ‘Command’ + ‘.’ for MAC.\n"))
         console.log(chalk.greenBright.bold("Now, enjoy the game, and good luck! ☻\n"))
         
     rl.question("To begin the game, please enter the number of players: ", numOfPlayers => {
@@ -164,7 +164,7 @@ const greeting = () => {
             console.log(chalk.red.bold("A maximum of 8 participants can play this game."))
             rl.close()
         } else {
-            console.log(`Thank you. We will now prepare the game for ${participants} people.\n`)
+            console.log(`Thank you. The game will now be prepared for ${participants} people.\n`)
             const startingPlayers = startGame(participants)
             activePlayers.push(...startingPlayers)
             functionConnecter()

@@ -4,13 +4,13 @@
 
 This project is a Command Line Interfect (CLI) game based on the famous casino card game, Blackjack.
 
-In this game, the goal is to get a hand of cards that’s worth as close to 21 points as possible! If a player’s hand goes over 21 points, they are eliminated from the game. 
+In this game, the goal is to get a hand of cards that’s worth as close to 21 points as possible! If a player’s hand goes over 21 points, they are eliminated from the game.
 
 ## Project Links
 Repo: https://github.com/christianaao/blackjack-card-game
 
 ## Features of This Project
-This project was written in JavaScript. There is no frontend or API server for this project (but maybe in the future).
+This project was written in JavaScript. There is no frontend for this project (but maybe in the future).
 
 This project was created using the following frameworks:
 - **Node.js:** runtime environment
@@ -29,7 +29,7 @@ Ensure that you have installed Node.js: https://nodejs.org/en/download
    git clone https://github.com/christianaao/blackjack-card-game
    ```
 
-2. In the cloned directory, type `pnpm install` in your terminal to install all dependencies.
+2. In the cloned directory, type `npm install` in your terminal to install all dependencies.
 
 3. Enter the following Scripts into your packet.json file:
 - "test": "jest",
