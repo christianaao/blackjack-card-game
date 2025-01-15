@@ -38,7 +38,7 @@ exports.readSuitName = (playerHand) => {
     playerHand.forEach((card) => {
         for (const suit in card) {
             let suitNumber = card[suit]
-            // checking for A, J, Q and K
+            // checking for Ace
             if (suitNumber === A) {
                 cardString += "Ace (1)"
             } else if (suitNumber === 11) {
