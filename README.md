@@ -2,7 +2,7 @@
 
 ## About This Project
 
-This project is a Command Line Interfect (CLI) game based on the famous casino card game, Blackjack.
+This project is a Command Line Interface (CLI) game based on the famous casino card game, Blackjack.
 
 In this game, the goal is to get a hand of cards that’s worth as close to 21 points as possible! If a player’s hand goes over 21 points, they are eliminated from the game.
 
