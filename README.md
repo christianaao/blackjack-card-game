@@ -31,9 +31,13 @@ Ensure that you have installed Node.js: https://nodejs.org/en/download
 
 2. In the cloned directory, type `npm install` in your terminal to install all dependencies.
 
-3. Enter the following Scripts into your packet.json file:
-- "test": "jest",
-- "start": "node blackjack.js"
+3. Enter the following Scripts into your `packet.json` file:
+```json
+  "scripts": {
+    "test": "jest",
+    "start": "node blackjack.js"
+  }
+```
 
 To start the game locally, run:
    ```bash
